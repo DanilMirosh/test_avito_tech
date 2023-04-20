@@ -1,0 +1,410 @@
+basePath: /
+definitions:
+  avito_internal_controller_http_v1.acceptRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+  avito_internal_controller_http_v1.appendRequest:
+    properties:
+      sum:
+        type: integer
+      user:
+        type: string
+    type: object
+  avito_internal_controller_http_v1.errResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  avito_internal_controller_http_v1.reserveRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+  avito_internal_controller_http_v1.transactionListResponse:
+    properties:
+      transactions:
+        items:
+          $ref: '#/definitions/entity.Transaction'
+        type: array
+    type: object
+  avito_internal_controller_http_v1.transferRequest:
+    properties:
+      amount:
+        type: integer
+      firstUserUUID:
+        type: string
+      secondUserUUID:
+        type: string
+    type: object
+  avito_internal_controller_http_v1.unreserveRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+  entity.Transaction:
+    properties:
+      money_amount:
+        type: integer
+      operation_date:
+        type: string
+      service_name:
+        type: string
+    type: object
+  internal_controller_http_v1.acceptRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+  internal_controller_http_v1.appendRequest:
+    properties:
+      sum:
+        type: integer
+      user:
+        type: string
+    type: object
+  internal_controller_http_v1.errResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  internal_controller_http_v1.reserveRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+  internal_controller_http_v1.transactionListResponse:
+    properties:
+      transactions:
+        items:
+          $ref: '#/definitions/entity.Transaction'
+        type: array
+    type: object
+  internal_controller_http_v1.transferRequest:
+    properties:
+      amount:
+        type: integer
+      firstUserUUID:
+        type: string
+      secondUserUUID:
+        type: string
+    type: object
+  internal_controller_http_v1.unreserveRequest:
+    properties:
+      amount:
+        type: integer
+      orderUUID:
+        type: string
+      serviceUUID:
+        type: string
+      userUUID:
+        type: string
+    type: object
+host: localhost:9000
+info:
+  contact: {}
+  description: Микросервис для работы с балансом пользователей
+  title: Тестовое задание на позицию стажёра-бэкендера от Avito Tech
+  version: "1.0"
+paths:
+  /v1/accept-income:
+    post:
+      description: Принимает id пользователя, id услуги, id заказа, сумму.
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_controller_http_v1.acceptRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод признания выручки – списывает из резерва деньги, добавляет данные
+        в отчет для бухгалтерии.
+      tags:
+      - Posts
+  /v1/append:
+    post:
+      description: Принимает id пользователя и сколько средств зачислить.
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_controller_http_v1.appendRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод начисления средств на баланс
+      tags:
+      - Posts
+  /v1/get-all-transactions/{date}:
+    get:
+      description: 'На вход: год-месяц. На выходе ссылка на CSV файл.'
+      parameters:
+      - description: 'YYYY-Mmm (example: 2022-Nov)'
+        in: path
+        name: date
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.transactionListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод для получения месячного отчета.
+      tags:
+      - Gets
+  /v1/get-balance/{id}:
+    get:
+      description: Принимает на вход id пользователя
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод получения баланса пользователя
+      tags:
+      - Gets
+  /v1/get-reserve/{id}:
+    get:
+      description: get user reserve
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Принимает на вход id пользователя
+      tags:
+      - Gets
+  /v1/get-transactions-by-date/{id}/{limit}/{offset}:
+    get:
+      description: Принимает id пользователя, количество выводимых строк, количество
+        пропускаемых строк.
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: amount of rows
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: amount of skipped rows
+        in: path
+        name: offset
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.transactionListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод получения списка транзакция пользователя с сортировкой по дате
+      tags:
+      - Gets
+  /v1/get-transactions-by-sum/{id}/{limit}/{offset}:
+    get:
+      description: Принимает id пользователя, количество выводимых строк, количество
+        пропускаемых строк.
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: amount of rows
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: amount of skipped rows
+        in: path
+        name: offset
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.transactionListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод получения списка транзакция пользователя с сортировкой по сумме
+      tags:
+      - Gets
+  /v1/reserve-money:
+    post:
+      description: Принимает id пользователя, id услуги, id заказа, стоимость.
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_controller_http_v1.reserveRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод резервирования средств с основного баланса на отдельном счете
+      tags:
+      - Posts
+  /v1/transfer-money:
+    post:
+      description: Принимает на вход id пользователя-отправителя, id пользователя-получателя,
+        сумму.
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_controller_http_v1.transferRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод перевода средств от пользователя к пользователю
+      tags:
+      - Posts
+  /v1/unreserve-money:
+    post:
+      description: Принимает id пользователя, id услуги, id заказа, стоимость.
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_controller_http_v1.unreserveRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: Метод разрезервирования средств пользователя
+      tags:
+      - Posts
+swagger: "2.0"
