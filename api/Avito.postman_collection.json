@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "82400e2a-5c6c-42c9-9dda-4a138708ecf4",
+		"name": "Avito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AppendBalance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\" : \"9dcb3c84-139f-4b80-b3ca-115a8c64fc60\",\n    \"sum\" : 110709\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/append",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"append"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/get-balance/9dcb3c84-139f-4b80-b3ca-115a8c64fc60",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"get-balance",
+						"9dcb3c84-139f-4b80-b3ca-115a8c64fc60"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReserveMoney",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userUUID\" : \"9dcb3c84-139f-4b80-b3ca-115a8c64fc60\",\n    \"serviceUUID\" : \"103fb536-6f66-42b6-a49b-16c359e16635\",\n    \"orderUUID\" : \"0f9571ce-3814-4241-8fd1-280e6474bc72\",\n    \"amount\" : 709\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/reserve-money",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"reserve-money"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReserve",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/get-reserve/9dcb3c84-139f-4b80-b3ca-115a8c64fc60",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"get-reserve",
+						"9dcb3c84-139f-4b80-b3ca-115a8c64fc60"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AcceptIncome",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userUUID\" : \"9dcb3c84-139f-4b80-b3ca-115a8c64fc60\",\n    \"serviceUUID\" : \"103fb536-6f66-42b6-a49b-16c359e16635\",\n    \"orderUUID\" : \"0f9571ce-3814-4241-8fd1-280e6474bc72\",\n    \"amount\" : 709\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/accept-income",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"accept-income"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TransferMoney",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstUserUUID\" : \"9dcb3c84-139f-4b80-b3ca-115a8c64fc60\",\n    \"secondUserUUID\" : \"d06070e6-1c3e-4df7-aad6-17bfa5534a8c\",\n    \"amount\" : 709\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/transfer-money",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"transfer-money"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnreserveMoney",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userUUID\" : \"9dcb3c84-139f-4b80-b3ca-115a8c64fc60\",\n    \"serviceUUID\" : \"103fb536-6f66-42b6-a49b-16c359e16635\",\n    \"orderUUID\" : \"0f9571ce-3814-4241-8fd1-280e6474bc72\",\n    \"amount\" : 709\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v1/unreserve-money",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"unreserve-money"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactionsByDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/get-transactions-by-date/9dcb3c84-139f-4b80-b3ca-115a8c64fc60/10/0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"get-transactions-by-date",
+						"9dcb3c84-139f-4b80-b3ca-115a8c64fc60",
+						"10",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactionsBySum",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/get-transactions-by-sum/9dcb3c84-139f-4b80-b3ca-115a8c64fc60/10/0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"get-transactions-by-sum",
+						"9dcb3c84-139f-4b80-b3ca-115a8c64fc60",
+						"10",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTransactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/v1/get-all-transactions/2022-Nov",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"get-all-transactions",
+						"2022-Nov"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:9000"
+		}
+	]
+}
