@@ -1,0 +1,1 @@
+module avito_test_GO
