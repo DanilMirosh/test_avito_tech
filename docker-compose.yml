@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  psql:
+    image: postgres:14-alpine3.14
+    container_name: 'psql'
+    volumes:
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  app:
+    container_name: 'avito'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    depends_on:
+      - psql
